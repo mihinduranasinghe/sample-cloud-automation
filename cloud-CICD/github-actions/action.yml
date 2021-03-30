@@ -1,0 +1,49 @@
+name: "wso2 apicloud CICD"
+author: "mihinduranasinghe"
+description: "This action can be used to run apimcli ccommands."
+
+inputs:
+  usernameTargetedTenant:
+    description: "Targeted Tenant/organization Username"
+    required: true
+
+  passwordTargetedTenant:
+    description: "Targeted Tenant/organization user Password"
+    required: true
+
+  APIName:
+    description: "API Name"
+    required: true
+
+  APIVersion:
+    description: "API Version"
+    required: true
+
+  PostmanCollectionTestFile:
+    description: "Postman collection"
+    required: false
+
+  needAPIAccessToken:
+    description: "TRUE or FALSE"
+    required: false
+
+  testingAppName:
+    description: "Provide a name for the automatic generated API application for testing"
+    required: false
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    # - inputToArg$1 # This can be added dynamically like below. It will be get as an input to entryppoint.sh
+    - ${{inputs.usernameTargetedTenant}}
+    - ${{inputs.passwordTargetedTenant}}
+    - ${{inputs.APIName}}
+    - ${{inputs.APIVersion}}
+    - ${{inputs.PostmanCollectionTestFile}}
+    - ${{inputs.needAPIAccessToken}}
+    - ${{inputs.testingAppName}}
+
+branding:
+  icon: "check-square"
+  color: "green"
